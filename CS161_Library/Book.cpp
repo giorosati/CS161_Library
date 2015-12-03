@@ -35,10 +35,10 @@ Book::Book(string idc, string t, string a)
 };
 
 //deconstructor
-Book::~Book()
-{
-	//cout <<"Deconstructor has run" endl;
-};
+//Book::~Book()
+//{
+//	//cout <<"Deconstructor has run" endl;
+//};
 
 int Book::getCheckOutLength()
 {

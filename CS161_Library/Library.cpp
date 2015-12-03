@@ -15,22 +15,67 @@ Library::Library()
 {
 	holdings = vector<Book*>();
 	members = vector<Patron*>();
-	int currentDate = NULL;  //should this be initialized to date?
+	int currentDate = 0;
 };
 
-void Library::addBook(Book*)
+void Library::addBook(Book* b)
 {
-	//code to push a book into the vector
+	//push a book into the vector
+	holdings.push_back(b);
 };
 
-void Library::addPatron(Patron*)
+void Library::addPatron(Patron* p)
 {
-	//code to push a patron into the vector
+	//push a patron into the vector
+	members.push_back(p);
 };
 
 string Library::checkOutBook(string pID, string bID)
 {
-	//code to add a book to a patrons book vector and change the bnooks location, checkedOutBy, and dateCheckedOut parameters
+	//code to:
+	//add a book to a patrons book vector
+	//change the books location, checkedOutBy, and dateCheckedOut parameters
+
+	Book* book = getBook(bID);  //get the book pointer
+	Patron* patron = getPatron(pID);  // get the patron pointer
+
+	if (book = NULL) //test if book is in the holdings vector
+	{
+		return "book not found";
+	}
+	else
+	{
+		if (patron = NULL)  //test if patron is in the members vector
+		{
+			return "patron not found";
+		}
+		else
+		{
+			Book testBook = *book;  //get book object
+			Locale testBookLocation = testBook.getLocation();
+
+			if (testBookLocation == CHECKED_OUT) //test if book is already checked out
+				return "book already checked out";
+			else if (testBookLocation == ON_HOLD_SHELF) //test if book is on hold
+			{
+				return "book on hold by another patron";
+			}
+			else //check out the book
+			{
+				testBook.setCheckedOutBy(patron);
+				testBook.setDateCheckedOut(currentDate);
+				testBook.setLocation(CHECKED_OUT);
+				if (patron = testBook.getRequestedBy()) //clear requested by if it was on hold
+				{
+					testBook.setRequestedBy(NULL);
+				}
+				//push book pointer into the patrons checked out books vector
+				Patron tempPatron = *patron; //get the patron object
+				tempPatron.addBook(book); //add to the vector
+				return "check out successful";
+			}
+		}
+	}
 };
 
 string Library::returnBook(string bID)
@@ -40,7 +85,28 @@ string Library::returnBook(string bID)
 
 string Library::requestBook(string pID, string bID)
 {
-	//code to change a books requestedBy parameter and possibly location
+
+	//code to:
+	//change requestedBy and location as needed
+
+	Book* book = getBook(bID);  //get the book pointer
+	Patron* patron = getPatron(pID);  // get the patron pointer
+
+	if (book = NULL) //test if book is in the holdings vector
+	{
+		return "book not found";
+	}
+	else
+	{
+		if (patron = NULL)  //test if patron is in the members vector
+		{
+			return "patron not found";
+		}
+		else
+		{
+
+		}
+
 };
 
 string Library::payFine(string pID, double payment)
@@ -55,10 +121,38 @@ void Library::incrementCurrentDate()
 
 Patron* Library::getPatron(string pID)
 {
-	//code to return a patron
+	Patron* patron = NULL;  //initialize a temp patron pointer to NULL
+	for (int i = 0; i < members.size(); i++)  //iterate through each member in the vector
+	{
+		for (i = 0; i < members.size(); i++)
+		{
+			Patron* testPatronPointer = members.at(i); //get the pointer
+			Patron testPatron = *testPatronPointer;  //get the patron object
+			string testPatronID = testPatron.getIdNum();  //get the patron ID
+			if (pID == testPatronID)  //see if ID's match
+			{
+				patron = testPatronPointer; //return the pointer if found
+			}
+			return patron;  //if the patron is not found, returns a NULL pointer
+		}
+	}
 };
 
 Book* Library::getBook(string bID)
 {
-	//code to return a book
+	Book* book = NULL;  //initialize a temp book pointer to NULL
+	for (int i = 0; i < holdings.size(); i++)  //iterate through each book in the vector
+	{
+		for (i = 0; i < holdings.size(); i++)
+		{
+			Book* testBookPointer = holdings.at(i); //get the pointer
+			Book testBook = *testBookPointer;  //get the book object
+			string testBookID = testBook.getIdCode();  //get the book ID
+			if (bID == testBookID)  //see if ID's match
+			{
+				book = testBookPointer; //return the pointer if found
+			}
+			return book;  //if the book is not found, returns a NULL pointer
+		}
+	}
 };

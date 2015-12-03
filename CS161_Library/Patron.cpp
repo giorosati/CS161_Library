@@ -15,15 +15,15 @@ Patron::Patron(string idn, string n)
 {
 	idNum = idn;
 	name = n;
-	checkedOutBooks = vector<Book*>();  //not sure if this is necessary
+	checkedOutBooks = vector<Book*>();
 	fineAmount = 0;
 };
 
 //deconstructor
-Patron::~Patron()
-{
-	//cout <<"Deconstructor has run" endl;
-};
+//Patron::~Patron()
+//{
+//	//cout <<"Deconstructor has run" endl;
+//};
 
 string Patron::getIdNum()
 {
@@ -42,12 +42,29 @@ vector<Book*> Patron::getCheckedOutBooks()
 
 void Patron::addBook(Book* b)
 {
-	//need code here to place the incoming book to the next position of the vector
+	//add book pointer to the vector
+	checkedOutBooks.push_back(b);
 };
 
 void Patron::removeBook(Book* b)
 {
-	//code here to remove the book from the vector and possibly rearrange the vector
+	//step 1 - find position of the book in the vector
+	int position = NULL;
+	for (int i = 0; i < checkedOutBooks.size(); i++)
+	{
+		if (b = checkedOutBooks.at(i))
+		{
+			int position = i;
+		}
+	}
+	if (position == NULL)  //case where book is not in the vector
+	{
+		cout << "Book not checked out to this Patron." << endl;
+	}
+	else  //remove the book pointer from the vector
+	{
+		checkedOutBooks.erase(checkedOutBooks.begin() + position);
+	}
 };
 
 double Patron::getFineAmount()
@@ -55,7 +72,10 @@ double Patron::getFineAmount()
 	return fineAmount;
 };
 
-void amendFine(double amount)
+void Patron::amendFine(double amount)
 {
-	//code to increase or decrease the fineAmount by the appropriate amount
+	//code to increase or decrease fineAmount
+	{
+		fineAmount = fineAmount + amount;
+	}
 };
