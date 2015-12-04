@@ -49,22 +49,14 @@ void Patron::addBook(Book* b)
 void Patron::removeBook(Book* b)
 {
 	//step 1 - find position of the book in the vector
-	int position = NULL;
+	int position = 0;
 	for (int i = 0; i < checkedOutBooks.size(); i++)
 	{
-		if (b = checkedOutBooks.at(i))
-		{
+		if (b == checkedOutBooks.at(i))
 			int position = i;
-		}
 	}
-	if (position == NULL)  //case where book is not in the vector
-	{
-		cout << "Book not checked out to this Patron." << endl;
-	}
-	else  //remove the book pointer from the vector
-	{
-		checkedOutBooks.erase(checkedOutBooks.begin() + position);
-	}
+	//remove the book pointer from the vector
+	checkedOutBooks.erase(checkedOutBooks.begin() + position);
 };
 
 double Patron::getFineAmount()

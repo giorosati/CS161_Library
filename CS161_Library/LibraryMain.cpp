@@ -37,15 +37,43 @@ int main()
 
 	lib.checkOutBook("abc", "345");
 
+	lib.returnBook("234");
+	//system("pause");
+	lib.requestBook("abc", "234");
+
 	for (int i = 0; i < 24; i++)
 		lib.incrementCurrentDate();
+
+	//testing
+	//cout << "First fine output: " << endl;
+	//	cout << p1.getFineAmount() << endl;
+	//	cout << p2.getFineAmount() << endl;
+	//	system("pause");
 
 	lib.payFine("bcd", 0.4);
 
 	double p1Fine = p1.getFineAmount();
 	double p2Fine = p2.getFineAmount();
 
-	system("pause");
+	//testing
+	//cout << "Second fine output: " << endl;
+	//cout << p1.getFineAmount() << endl;
+	//cout << p2.getFineAmount() << endl;
+	//system("pause");
+
+	//test output
+	//cout << "p1 data:" << endl;
+	//cout << "id#: " << p1.getIdNum() << endl;
+	//cout << "Name: " << p1.getName() << endl;
+
+	//cout << "p2 data:" << endl;
+	//cout << "id#: " << p2.getIdNum() << endl;
+	//cout << "Name: " << p2.getName() << endl;
+
+	for (int i = 0; i < 7; i++)
+		lib.incrementCurrentDate();
+
+	//system("pause");
 
 	return 0;
 }
